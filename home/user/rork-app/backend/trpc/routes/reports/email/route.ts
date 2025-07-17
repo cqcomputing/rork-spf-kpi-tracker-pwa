@@ -214,50 +214,49 @@ async function sendMockEmail(to: string, subject: string, content: string, attac
 
 // Real email service (you can implement this with your preferred provider)
 async function sendRealEmail(to: string, subject: string, content: string, attachment?: { filename: string; content: string }) {
-  // TODO: Implement with your preferred email service
-  // Example implementations:
+  if (EMAIL_CONFIG.provider === 'sendgrid') {
+    // SendGrid implementation
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(EMAIL_CONFIG.sendgrid.apiKey);
+    
+    const msg = {
+      to,
+      from: EMAIL_CONFIG.from,
+      subject,
+      html: content,
+      attachments: attachment ? [{
+        content: Buffer.from(attachment.content).toString('base64'),
+        filename: attachment.filename,
+        type: attachment.filename.endsWith('.csv') ? 'text/csv' : 'application/pdf',
+        disposition: 'attachment',
+      }] : [],
+    };
+    
+    const result = await sgMail.send(msg);
+    return { success: true, messageId: result[0].headers['x-message-id'] || 'sendgrid-sent' };
+  }
   
-  /*
-  // Nodemailer example:
-  const nodemailer = require('nodemailer');
-  const transporter = nodemailer.createTransporter(EMAIL_CONFIG.smtp);
+  if (EMAIL_CONFIG.provider === 'nodemailer') {
+    // Nodemailer implementation
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransporter(EMAIL_CONFIG.smtp);
+    
+    const mailOptions = {
+      from: EMAIL_CONFIG.from,
+      to,
+      subject,
+      html: content,
+      attachments: attachment ? [{
+        filename: attachment.filename,
+        content: attachment.content,
+      }] : [],
+    };
+    
+    const result = await transporter.sendMail(mailOptions);
+    return { success: true, messageId: result.messageId };
+  }
   
-  const mailOptions = {
-    from: EMAIL_CONFIG.from,
-    to,
-    subject,
-    html: content,
-    attachments: attachment ? [{
-      filename: attachment.filename,
-      content: attachment.content,
-    }] : [],
-  };
-  
-  return await transporter.sendMail(mailOptions);
-  */
-  
-  /*
-  // SendGrid example:
-  const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(EMAIL_CONFIG.sendgrid.apiKey);
-  
-  const msg = {
-    to,
-    from: EMAIL_CONFIG.from,
-    subject,
-    html: content,
-    attachments: attachment ? [{
-      content: Buffer.from(attachment.content).toString('base64'),
-      filename: attachment.filename,
-      type: attachment.filename.endsWith('.csv') ? 'text/csv' : 'application/pdf',
-      disposition: 'attachment',
-    }] : [],
-  };
-  
-  return await sgMail.send(msg);
-  */
-  
-  throw new Error('Real email service not configured. Please implement sendRealEmail function.');
+  throw new Error(`Email provider '${EMAIL_CONFIG.provider}' not implemented. Please configure EMAIL_PROVIDER environment variable.`);
 }
 
 export default publicProcedure
