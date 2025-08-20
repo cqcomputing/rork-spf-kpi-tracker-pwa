@@ -8,12 +8,11 @@ import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { trpc, trpcClient } from "@/lib/trpc";
 
-import { registerServiceWorker } from "./register-sw"; // <-- if you placed it elsewhere, adjust the path
+// import { registerServiceWorker } from "./register-sw"; // TEMP disabled
 
-// Don’t block if this throws in non-web envs
 try {
   SplashScreen.preventAutoHideAsync();
-} catch { /* noop */ }
+} catch {}
 
 const queryClient = new QueryClient();
 
@@ -28,11 +27,9 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   useEffect(() => {
-    // Hide splash once mounted
-    SplashScreen.hideAsync().catch(() => {});
-
-    // PWA: register service worker (web only inside the helper)
-    registerServiceWorker();
+    // TEMP: disable both while we debug
+    // SplashScreen.hideAsync().catch(() => {});
+    // registerServiceWorker();
   }, []);
 
   return (
