@@ -2,6 +2,13 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/sw.js", "destination": "/sw.js" },
-    { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
+    { "source": "/manifest.webmanifest", "destination": "/manifest.webmanifest" },
+
+    { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
+    { "source": "/assets/(.*)", "destination": "/assets/$1" },
+    { "source": "/icons/(.*)", "destination": "/icons/$1" },
+    { "source": "/(.*\\.(js|mjs|css|png|jpg|jpeg|gif|webp|ico|svg|json|txt|map))", "destination": "/$1" },
+
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
