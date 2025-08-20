@@ -2,7 +2,6 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/sw.js", "destination": "/sw.js" },
-    { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
     { "source": "/manifest.webmanifest", "destination": "/manifest.webmanifest" },
 
     { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
