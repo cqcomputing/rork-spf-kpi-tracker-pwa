@@ -1,27 +1,16 @@
 {
-  "name": "Rork KPI Tracker",
-  "short_name": "KPI Tracker",
-  "start_url": "/?source=pwa",
+  "name": "Stadium KPI Tracker",
+  "short_name": "Stadium KPI",
+  "description": "Sales KPI tracking application for Stadium Premier Fitness",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#111111",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#FFC045",
   "icons": [
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
