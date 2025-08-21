@@ -5,11 +5,18 @@
     { "source": "/manifest.webmanifest", "destination": "/manifest.webmanifest" },
     { "source": "/manifest.json", "destination": "/manifest.webmanifest" },
 
-    { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
-    { "source": "/assets/(.*)", "destination": "/assets/$1" },
-    { "source": "/icons/(.*)", "destination": "/icons/$1" },
-    { "source": "/(.*\\.(js|mjs|css|png|jpg|jpeg|gif|webp|ico|svg|json|txt|map))", "destination": "/$1" },
+    { "source": "/_expo/:path*", "destination": "/_expo/:path*" },
+    { "source": "/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/icons/:path*", "destination": "/icons/:path*" },
 
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/:path*", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" }
+      ]
+    }
   ]
 }
