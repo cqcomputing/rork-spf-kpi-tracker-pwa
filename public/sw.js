@@ -1,4 +1,5 @@
-const CACHE = "app-shell-v1";
+// public/sw.js
+const CACHE = "app-shell-v2"; // bump when you change HTML/JS so clients update
 const ASSETS = ["/", "/index.html", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
@@ -17,9 +18,13 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
   const req = e.request;
+
+  // SPA navigations — network first with fallback to cached index.html
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).catch(() => caches.match("/index.html")));
     return;
   }
+
+  // Static assets — cache first
   e.respondWith(caches.match(req).then((hit) => hit || fetch(req)));
 });
