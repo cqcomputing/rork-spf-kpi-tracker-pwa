@@ -3,6 +3,7 @@
   "rewrites": [
     { "source": "/sw.js", "destination": "/sw.js" },
     { "source": "/manifest.webmanifest", "destination": "/manifest.webmanifest" },
+    { "source": "/manifest.json", "destination": "/manifest.webmanifest" },
 
     { "source": "/_expo/(.*)", "destination": "/_expo/$1" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
