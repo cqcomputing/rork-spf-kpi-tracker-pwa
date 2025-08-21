@@ -4,11 +4,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
+import { Platform } from "react-native";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { trpc, trpcClient } from "@/lib/trpc";
 
-// import { registerServiceWorker } from "./register-sw"; // TEMP disabled
+import { registerServiceWorker } from "./register-sw";
 
 try {
   SplashScreen.preventAutoHideAsync();
@@ -27,9 +28,12 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   useEffect(() => {
-    // TEMP: disable both while we debug
-    // SplashScreen.hideAsync().catch(() => {});
-    // registerServiceWorker();
+    SplashScreen.hideAsync().catch(() => {});
+    
+    // Register service worker only on web platform
+    if (Platform.OS === "web") {
+      registerServiceWorker();
+    }
   }, []);
 
   return (
