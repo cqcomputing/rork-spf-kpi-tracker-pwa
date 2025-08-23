@@ -3,22 +3,14 @@ import { BarChart3, ClipboardList, Award } from "lucide-react-native";
 import React from "react";
 import Colors from "@/constants/colors";
 import { useAuthStore } from "@/store/auth-store";
-import { useRouter } from "expo-router";
+import LoginScreen from "@/components/LoginScreen";
 
 export default function TabLayout() {
   const { isAuthenticated, user } = useAuthStore();
-  const router = useRouter();
   
-  // Redirect to login if not authenticated
-  React.useEffect(() => {
-    if (!isAuthenticated) {
-      router.replace("/");
-    }
-  }, [isAuthenticated, router]);
-  
-  // Don't render tabs if not authenticated
+  // Show login screen if not authenticated
   if (!isAuthenticated) {
-    return null;
+    return <LoginScreen />;
   }
   
   const isAdmin = user?.role === "admin";
