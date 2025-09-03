@@ -63,7 +63,7 @@ const LoginScreen = () => {
       } else {
         await AsyncStorage.removeItem('rememberedUser');
       }
-      router.replace('/(tabs)/');
+      router.replace('/');
     } catch (error) {
       Alert.alert('Login Failed', error instanceof Error ? error.message : 'Invalid credentials');
     } finally {
